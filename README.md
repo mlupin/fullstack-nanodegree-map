@@ -7,3 +7,4 @@ Sources:
 - [jQuery](https://www.w3schools.com/jquery/jquery_get_started.asp)
 - [Muted Blue Map](https://snazzymaps.com/style/83/muted-blue)
 - [GPS Coordinates](https://www.gps-coordinates.net/)
+- [LA Pixabay Photo](https://pixabay.com/en/usa-los-angeles-california-travel-1443523/)
