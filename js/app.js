@@ -8,76 +8,15 @@ var polygon = null;
 var placeMarkers = [];
 function initMap() {
   // Create a styles array to use with the map.
-  var styles = [
-    {
-      featureType: 'water',
-      stylers: [
-        { color: '#19a0d8' }
-      ]
-    },{
-      featureType: 'administrative',
-      elementType: 'labels.text.stroke',
-      stylers: [
-        { color: '#ffffff' },
-        { weight: 6 }
-      ]
-    },{
-      featureType: 'administrative',
-      elementType: 'labels.text.fill',
-      stylers: [
-        { color: '#e85113' }
-      ]
-    },{
-      featureType: 'road.highway',
-      elementType: 'geometry.stroke',
-      stylers: [
-        { color: '#efe9e4' },
-        { lightness: -40 }
-      ]
-    },{
-      featureType: 'transit.station',
-      stylers: [
-        { weight: 9 },
-        { hue: '#e85113' }
-      ]
-    },{
-      featureType: 'road.highway',
-      elementType: 'labels.icon',
-      stylers: [
-        { visibility: 'off' }
-      ]
-    },{
-      featureType: 'water',
-      elementType: 'labels.text.stroke',
-      stylers: [
-        { lightness: 100 }
-      ]
-    },{
-      featureType: 'water',
-      elementType: 'labels.text.fill',
-      stylers: [
-        { lightness: -100 }
-      ]
-    },{
-      featureType: 'poi',
-      elementType: 'geometry',
-      stylers: [
-        { visibility: 'on' },
-        { color: '#f0e4d3' }
-      ]
-    },{
-      featureType: 'road.highway',
-      elementType: 'geometry.fill',
-      stylers: [
-        { color: '#efe9e4' },
-        { lightness: -25 }
-      ]
-    }
-  ];
-  // Constructor creates a new map - only center and zoom are required.
+  // Source: https://snazzymaps.com/style/83/muted-blue
+  var styles = [{"featureType":"all","stylers":[{"saturation":0},{"hue":"#e7ecf0"}]},{"featureType":"road","stylers":[{"saturation":-70}]},{"featureType":"transit","stylers":[{"visibility":"off"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"visibility":"simplified"},{"saturation":-60}]}];  
+
+  // Constructor creates a new map
+  // Same constructor used in Udacity repo listed in README
+  // Changed center location and updated styles listed above
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7413549, lng: -73.9980244},
-    zoom: 13,
+    center: {lat: 34.032235, lng: -118.348711},
+    zoom: 12,
     styles: styles,
     mapTypeControl: false
   });
@@ -94,15 +33,90 @@ function initMap() {
       document.getElementById('places-search'));
   // Bias the searchbox to within the bounds of the map.
   searchBox.setBounds(map.getBounds());
-  // These are the real estate listings that will be shown to the user.
-  // Normally we'd have these in a database instead.
+
+  // List of locations similar to udacity course repo
+  // Added different locations for LA, address, and categories
+  // Use gps-coordinates to get exact lat and lng
   var locations = [
-    {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-    {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-    {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-    {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-    {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-    {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+    {
+      title: 'Bay Cities Italian Deli',
+      location: {lat: 34.017985, lng: -118.489202},
+      address: '1517 Lincoln Blvd, Santa Monica, CA 90401',
+      info: 'Local staple known for its signature overstuffed sandwiches, '+
+            'Italian deli fare & gourmet groceries.',
+      category: ['food', 'store']
+    },
+    {
+      title: 'Los Angeles County Museum of Art',
+      location: {lat: 34.063791, lng: -118.358885},
+      address: ' 5905 Wilshire Blvd, Los Angeles, CA 90036',
+      info: 'Largest art museum in the West inspires creativity and dialogue.',
+      category: ['museum', 'food', 'entertainment', 'store', 'restaurant', 'park']
+    },
+    {
+      title: 'Museum of Neon Art',
+      location: {lat: 34.143754, lng: -118.25466},
+      address: '216 S Brand Blvd, Glendale, CA 91204',
+      info: 'The Museum of Neon Art encourages learning, curiosity and ' +
+            'expression through the preservation, collection and ' +
+            'interpretation of neon, electric and kinetic art.',
+      category: ['museum', 'store']
+    },
+    {
+      title: 'The Broad',
+      location: {lat: 34.054466, lng: -118.250557},
+      address: ' 221 S Grand Ave, Los Angeles, CA 90012',
+      info: 'The Broad is a contemporary art museum founded by philanthropists '+
+            'Eli and Edythe Broad on Grand Avenue in downtown Los Angeles.',
+      category: ['museum', 'store', 'entertainment', 'food']
+    },
+    {
+      title: 'Gracias Madre',
+      location: {lat: 34.080813, lng: -118.387003},
+      address: '8905 Melrose Ave, West Hollywood, CA 90069',
+      info: 'Meatless Mexican fare, all vegan & organic, plus a big tequila & ' +
+            'drink menu, in a chic space.',
+      category: ['food', 'restaurant']
+    },
+    {
+      title: 'KazuNori',
+      location: {lat: 34.0477, lng: -118.247882},
+      address: '421 S Main St, Los Angeles, CA 90013',
+      info: 'Functional, masculine setting for Japanese temaki (hand rolls) '+
+            'from a beloved sushi restaurateur.',
+      category: ['food', 'restaurant']
+    },
+    {
+      title: 'Getty Center',
+      location: {lat: 34.07645, lng: -118.473884},
+      address: '1200 Getty Center Dr, Los Angeles, CA 90049',
+      info: 'The Getty is one of the world\'s largest arts organizations.',
+      category: ['museum', 'food', 'entertainment', 'store', 'restaurant', 'park']
+    },
+    {
+      title: 'Salt & Straw',
+      location: {lat: 33.990864, lng: -118.465991},
+      address: '1357 Abbot Kinney Blvd, Venice, CA 90291',
+      info: 'Popular ice cream chain out of Oregon known for inventive flavors '+
+            '& farm-sourced ingredients.',
+      category: ['food', 'store']
+    },
+    {
+      title: 'Baldwin Hills Scenic Overlook',
+      location: {lat: 34.017583, lng: -118.384038},
+      address: '6300 Hetzler Rd, Culver City, CA 90232',
+      info: 'Hilltop park with views of Downtown Los Angeles plus hiking trails '+
+            '& history exhibits.',
+      category: ['park']
+    },
+    {
+      title: 'Harvelle\'s Blue Club',
+      location: {lat: 34.015605, lng: -118.494488},
+      address: '1432 4th St, Santa Monica, CA 90401',
+      info: 'Historic music club presenting blues, jazz, R&B, hip-hop, spoken '+
+            'word, burlesque & more since 1931.',
+      category: ['entertainment']
+    }
   ];
   var largeInfowindow = new google.maps.InfoWindow();
   // Initialize the drawing manager.
