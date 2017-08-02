@@ -5,54 +5,74 @@
     <title>Los Angeles Neighborhood Map</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, user-scalable=no, 
           initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   </head>
   <body>
-    <div class="container">
-      <div class="options-box">
-        <h1>Find Your New NYC Home</h1>
-        <div>
-          <input id="show-listings" type="button" value="Show Listings">
-          <input id="hide-listings" type="button" value="Hide Listings">
-          <hr>
-          <span class="text"> Draw a shape to search within it for homes!</span>
-          <input id="toggle-drawing"  type="button" value="Drawing Tools">
+    <div class="container-fluid">
+      <section id="hero">
+        <div class="hero-content">
+          <h1 class="hero-headline">Welcome to LA</h1>
+          
+          <!--  Script to jump to a certain location copied from 
+          Source: Stack Overflow - jQuery jump or scroll to certain position -->
+          <ul class="hero-sections">
+            <a class="jumper" href="#about">about</a> | 
+            <a class="jumper" href="#main">explore</a> | 
+            <a class="jumper" href="#connect">connect</a>
+          </ul>
+        </div> 
+      </section>
+
+      <main id="main">
+        <div class="options-box">
+          <div>
+            <button id="drop" onclick="drop()">Drop Markers</button>
+          </div>
+
+          <div>
+            <span class="text">Search for nearby places</span>
+            <input id="places-search" type="text" placeholder="Ex: Pizza delivery in NYC">
+            <input id="go-places" type="button" value="Go">
+          </div>
         </div>
-        <hr>
-        <div>
-          <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
-          <input id="zoom-to-area" type="button" value="Zoom">
+      
+        <div id="map"></div>
+      </main>
+
+      <section id="about">
+        <div class="about-content">
+          <h1 class="about-headline">About this project</h1>
+          
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quod quidem iam fit etiam in Academia. Quamquam id quidem licebit iis existimare, qui legerint. Sed erat aequius Triarium aliquid de dissensione nostra iudicare. Ut in geometria, prima si dederis, danda sunt omnia. Illi enim inter se dissentiunt. Quid ad utilitatem tantae pecuniae?</p>
+
+          <p>Consequens enim est et post oritur, ut dixi. Quid est, quod ab ea absolvi et perfici debeat? Istam voluptatem perpetuam quis potest praestare sapienti? Quod vestri non item. Tum Lucius: Mihi vero ista valde probata sunt, quod item fratri puto. Huius, Lyco, oratione locuples, rebus ipsis ielunior. De ingenio eius in his disputationibus, non de moribus quaeritur. Quae in controversiam veniunt, de iis, si placet, disseramus.</p>
         </div>
-        <hr>
-        <div>
-          <span class="text"> Within </span>
-          <select id="max-duration">
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-            <option value="30">30 min</option>
-            <option value="60">1 hour</option>
-          </select>
-          <select id="mode">
-            <option value="DRIVING">drive</option>
-            <option value="WALKING">walk</option>
-            <option value="BICYCLING">bike</option>
-            <option value="TRANSIT">transit ride</option>
-          </select>
-          <span class="text">of</span>
-          <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-          <input id="search-within-time" type="button" value="Go">
-        </div>
-        <hr>
-        <div>
-          <span class="text">Search for nearby places</span>
-          <input id="places-search" type="text" placeholder="Ex: Pizza delivery in NYC">
-          <input id="go-places" type="button" value="Go">
-        </div>
-      </div>
-      <div id="map"></div>
+        
+        <footer id="connect" class="connect-content">
+          <h1 class="connect-headline">Connect</h1>
+
+          <ul class="links">
+            <a href="https://github.com/mlupin" class="link-item"><i class="fa fa-github"></i></a>
+            <a href="mail-to:lupinmarina@gmail.com" class="link-item"><i class="fa fa-envelope"></i></a>
+            <a href="https://linkedin.com/lupinmarina" class="link-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+          </ul>
+        </footer>
+      </section> 
     </div>
   
+   <!--  Script to jump to a certain location copied from 
+    Source: Stack Overflow - jQuery jump or scroll to certain position -->
+    <script type="text/javascript">
+      $(".jumper").on("click", function( e ) {
+        e.preventDefault();
+
+        $("body, html").animate({ 
+          scrollTop: $( $(this).attr('href') ).offset().top 
+        }, 600);
+      });
+    </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src='js/app.js'></script>
