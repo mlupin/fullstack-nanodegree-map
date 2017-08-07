@@ -2,9 +2,7 @@
 var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
-// Create placemarkers array to use in multiple functions to have control
-// over the number of places that show.
-var placeMarkers = [];
+
 
 // List of locations similar to udacity course repo
 // Added different locations for LA, address, and categories
@@ -71,15 +69,20 @@ var Location = function(data) {
       // icon: 'images/marker.png'
   });
 
+  // clicking on the marker opens the info window
   this.marker.addListener('click', function() {
     displayInfoWindow(this);
-
   });
 
   // note: setVisible keep reference of the marker on the map
   this.displayMarker = ko.computed(function() {
       this.marker.setVisible(this.visible());
   }, this);
+
+  
+  this.selectLocation = (function() {
+    google.maps.event.trigger(this.marker, 'click');
+  });
 };
 
 // initialize Google Maps
@@ -126,10 +129,6 @@ function displayInfoWindow(marker) {
       }, 1000);
 
 };
-// [ ] make a list of locations on the screen
-// [ ] make locations clickable. make the current cat change when you click on a location
-// [ ] search term in real time  - add function and input window in html
-// [ ] function determines which location to display
 
 // Source: cat-clicker udacity course
 function ViewModel() {
@@ -150,11 +149,14 @@ function ViewModel() {
   // initialize filter 
   this.filter = ko.observable('');
 
-  /* Search function */
+  // Search function
   this.filteredLocations = ko.computed( function() {
     var searchTerm = self.filter().toLowerCase();
 
     if (searchTerm === '') {
+      self.locationList().forEach(function(locationItem){
+        locationItem.visible(true);
+      });
       return self.locationList();
     } else {
       return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
@@ -168,11 +170,7 @@ function ViewModel() {
       });
     }
   }, self);
-  // 
-  this.selectLocation = function(selectedLocation) {
-    // update currentLocation
-      // self.currentLocation(clickedLocation);
-  };
+
 };
 
 function init() {
