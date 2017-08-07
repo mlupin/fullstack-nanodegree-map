@@ -12,4 +12,6 @@ Sources:
 - [Skyline Pixabay Photo](https://pixabay.com/en/los-angeles-skyline-city-buildings-314006/)
 - [Hollywood Pixabay Photo](https://pixabay.com/en/hollywood-sign-palm-trees-1245960/)
 - [Stack Overflow - jQuery jump or scroll to certain position](https://stackoverflow.com/questions/15158937/jquery-jump-or-scroll-to-certain-position-div-or-target-on-the-page-from-button)
+- [Google Maps API - Info Window](https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple)
 - [Google Maps API - Marker Animation](https://developers.google.com/maps/documentation/javascript/examples/marker-animations-iteration)
+- [Google Maps API - Markers](https://developers.google.com/maps/documentation/javascript/markers)
