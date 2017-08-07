@@ -75,6 +75,11 @@ var Location = function(data) {
     displayInfoWindow(this);
 
   });
+
+  // note: setVisible keep reference of the marker on the map
+  this.displayMarker = ko.computed(function() {
+      this.marker.setVisible(this.visible());
+  }, this);
 };
 
 // initialize Google Maps
@@ -95,6 +100,7 @@ function Map() {
 
   // initialize infoWindow
   infowindow = new google.maps.InfoWindow();
+  
 
 
   // [ ] create drop function
@@ -133,9 +139,6 @@ function ViewModel() {
   // initialize list
   this.locationList = ko.observableArray([]);
 
-  this.filter = ko.observable();
-
-
   //add each initial location to the location List observable array
   initialLocations.forEach(function(locationItem) {
     self.locationList.push( new Location(locationItem) );
@@ -144,16 +147,32 @@ function ViewModel() {
   // initialize current location
   this.currentLocation = ko.observable( this.locationList() [0] );
 
-// Creates the search function to return matching list items and markers.
-  this.filteredLocations = ko.computed(function () {
-    return self.locationList().filter(function(locationItem) {
-      // if filter not applied
-      if ( !self.filter() ) {
-        return locationItem;
-      };
+  // initialize filter 
+  this.filter = ko.observable('');
 
-    }, this);
-    });
+  /* Search function */
+  this.filteredLocations = ko.computed( function() {
+    var searchTerm = self.filter().toLowerCase();
+
+    if (searchTerm === '') {
+      return self.locationList();
+    } else {
+      return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
+        var locationTitle = locationItem.title().toLowerCase();
+        
+        // -1 means "no match found" or false
+        // otherwise true
+        var result = (locationTitle.indexOf(searchTerm) !== -1);
+        locationItem.visible(result);
+        return result;
+      });
+    }
+  }, self);
+  // 
+  this.selectLocation = function(selectedLocation) {
+    // update currentLocation
+      // self.currentLocation(clickedLocation);
+  };
 };
 
 function init() {

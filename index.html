@@ -33,9 +33,10 @@
             <div>
             <button id="drop" onclick="drop()">Drop Markers</button>
           </div>
-            <input class="options-box" 
-                   data-bind="textInput: filter, valueUpdate: 'afterkeydown'"
-                   placeholder="Search..." />
+            <input id="filter"
+                  class="options-box" 
+                  data-bind="textInput: filter, valueUpdate: 'afterkeydown'"
+                  placeholder="Search..." />
           </div>
           
           <div class="list">
