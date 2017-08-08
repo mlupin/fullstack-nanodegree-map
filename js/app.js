@@ -225,7 +225,6 @@ function ViewModel() {
         locationItem.marker.icon = 'images/blue-marker.png';
         locationItem.visible(false);
     });
-    return self.locationList();
   };
 
   // drop all markers to the map
@@ -242,8 +241,9 @@ function ViewModel() {
   // initialize filter 
   this.filter = ko.observable('');
 
-  // Search function
+  // search function
   this.filteredLocations = ko.computed( function() {
+    infowindow.close();
     var searchTerm = self.filter().toLowerCase();
 
     if (searchTerm === '') {
@@ -262,9 +262,12 @@ function ViewModel() {
     }
   }, self);
 
+  // reset map initial set
+  // does not reset filter
   this.resetMap = function () {
     this.dropMarkers();
     map.setCenter({lat: 34.032235, lng: -118.348711},);
+    console.log("Reset Map");
   };
 };
 
@@ -272,4 +275,7 @@ function init() {
   Map();
   ko.applyBindings(new ViewModel());
 };
-// [ ] error handling
+
+function error() {
+  alert("Google Maps has failed to load.");
+}

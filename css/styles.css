@@ -91,16 +91,37 @@ html {
   z-index: 1;
 }
 
+.bottons {
+  padding: 0 !important;
+}
+
 .options-box {
   height: 100%;
   padding: 10px 10px 10px 10px;
   text-align: left;
-  width: 340px;
+  width: 100%;
   z-index: 2;
+}
+.list {
+  height: 80vh;
+  overflow: scroll;
+}
+
+.results {
+  margin: 0;
+  padding: 0;
+}
+
+.location {
+  margin: 5px;
+  padding: 5px;
+  list-style: none;
+  background-color: lightgrey;
+  opacity: 1;
 }
 
 .location:hover {
-  text-decoration: underline;
+  background-color: #B0C4DE;
 }
 /*******************
 * About and Connect

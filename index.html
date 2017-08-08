@@ -29,26 +29,24 @@
 
       <main id="main">
         <div class="app col-xs-12 col-md-4">
-          <div class="search">
+          <div class="bottons col-xs-12">
             <!-- click binding -->
-            <button id="clear" type= "botton" class="btn btn-info" data-bind="click: clearMarkers">Clear</button>
-            <button id="drop" type= "botton" class="btn btn-info" data-bind="click: dropMarkers">Drop</button>
-            <button id="reset" type= "botton" class="btn btn-info" data-bind="click: resetMap">Reset</button>
-
-
-            <input id="filter"
-                  class="options-box" 
-                  data-bind="textInput: filter, valueUpdate: 'afterkeydown'"
-                  placeholder="Search..." />
+            <button id="clear" type="botton" class="btn btn-info col-xs-4" data-bind="click: clearMarkers">Clear</button>
+            <button id="drop" type="botton" class="btn btn-info col-xs-4" data-bind="click: dropMarkers">Drop</button>
+            <button id="reset" type="reset" class="btn btn-info col-xs-4" data-bind="click: resetMap">Reset</button>
           </div>
+
+          <input id="filter" class="options-box" 
+                data-bind="textInput: filter, valueUpdate: 'afterkeydown'"
+                placeholder="Search..." />
+
           
-          <div class="list">
-            <ul class="results" data-bind="foreach: filteredLocations">
-              <li class="location bg-info"><h4 class="location-title" data-bind="text: title, click: selectLocation"></h4></li>
-            </ul>
-          </div>
+        <div class="list">
+          <ul class="results" data-bind="foreach: filteredLocations">
+            <li class="location bg-info"><h5 class="location-title" data-bind="text: title, click: selectLocation"></h5></li>
+          </ul>
         </div>
-      
+              </div>
         <div id="map" class="map col-xs-12 col-md-8"></div>
       </main>
 
@@ -83,18 +81,13 @@
         }, 600);
       });
     </script>
-    
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     <script src='js/app.js'></script>
-<!--     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBgQ5Jmk97lLcg-ZjN2H3JAY6AVl37wp3Q&v=3&callback=init">
-    </script> -->
-
-    <script 
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,
-        drawing&key=AIzaSyBgQ5Jmk97lLcg-ZjN2H3JAY6AVl37wp3Q&v=3&callback=init"  onerror="errorHandling()"">
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBgQ5Jmk97lLcg-ZjN2H3JAY6AVl37wp3Q&v=3&callback=init"
+        onerror="error()">
     </script>
-
 
   </body>
 </html>
