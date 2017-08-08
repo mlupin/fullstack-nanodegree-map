@@ -149,8 +149,10 @@ function displayInfoWindow(marker) {
             var address = "Address not available";
           };
           
-          console.log("phone " + venue.contact.formattedPhone);
-          console.log("address " + venue.location.formattedAddress[0]);
+          var url = "https://foursquare.com/v/" + venue.id;
+          console.log("phone " + phone);
+          console.log("address " + address);
+          console.log("address " + url);
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
