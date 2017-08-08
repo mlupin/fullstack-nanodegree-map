@@ -111,7 +111,7 @@ function Map() {
 
   // initialize infoWindow
   infowindow = new google.maps.InfoWindow();
-
+  console.log("map initialized");
 };
 
 function displayInfoWindow(marker) {
@@ -156,6 +156,7 @@ function displayInfoWindow(marker) {
                     '<p>'+ location.address + ',' + location.city+'</p>'
                     '</div>';
 
+          console.log(contentString);
           infowindow.setContent(contentString);
         }),
         fail: function () {
