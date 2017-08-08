@@ -152,7 +152,7 @@ function displayInfoWindow(marker) {
           var url = "https://foursquare.com/v/" + venue.id;
 
           if (url === 'undefined') {
-            url = #;
+            url = "#";
           };
 
           console.log("phone " + phone);
