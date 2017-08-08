@@ -1,4 +1,15 @@
-All code is from the Udacity repo listed below, unless stated that it has been modified.
+# Neighborhood Map Project
+This project is a single page application featuring a map of Los Angeles neighborhood. The application was built using Google Maps API, Foursquare API, Knockout JS, and jQuery.
+
+Live site: [github page](https://mlupin.github.io/fullstack-nanodegree-map/)
+
+### Installation
+Clone the project repository and open index.html
+```
+$ git clone https://github.com/mlupin/fullstack-nanodegree-map.git
+$ cd fullstack-nanodegree-map
+$ open index.html
+```
 
 Sources:
 - [Udacity repo](https://github.com/udacity/ud864/blob/master/Project_Code_13_DevilInTheDetailsPlacesDetails.html)
