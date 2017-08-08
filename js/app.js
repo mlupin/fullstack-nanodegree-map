@@ -53,15 +53,11 @@ var initialLocations = [
   }
 ];
 
-// {lat: self.lat, lng: self.lng},
+// location model
 var Location = function(data) {
 
   this.title = ko.observable(data.title);
   this.location = ko.observable(data.location);
-  this.url = ko.observable(data.url);
-  this.address = ko.observable(data.address);
-  this.phone = ko.observable(data.phone);
-  this.id = ko.observable(data.id);
 
   // KO: The visible binding causes the associated DOM element to become hidden
   // or visible according to the value you pass to the binding.
@@ -69,17 +65,23 @@ var Location = function(data) {
   // http://knockoutjs.com/documentation/visible-binding.html
   this.visible = ko.observable(true);
 
+  // create marker with default blue marker
   this.marker = new google.maps.Marker({
       position: {lat: data.location.lat, lng: data.location.lng},
       map: map,
       title: data.title,
-      animation: google.maps.Animation.DROP
-      // icon: 'images/marker.png'
+      animation: google.maps.Animation.DROP,
+      icon: 'images/blue-marker.png'
   });
 
   // clicking on the marker opens the info window
   this.marker.addListener('click', function() {
-    displayInfoWindow(this);
+    // track visited markers with purple icon
+    this.icon = 'images/purple-marker.png';
+    // open info window and populate
+    InfoWindow(this);
+    // setCenter takes a LatLng object and center map
+    map.setCenter(this.getPosition()); 
   });
 
   // note: setVisible keep reference of the marker on the map
@@ -87,8 +89,10 @@ var Location = function(data) {
       this.marker.setVisible(this.visible());
   }, this);
 
-  
+  // selecting location from list is similar to clicking on marker
   this.selectLocation = (function() {
+    // if marker is not visible, set marker visible by default
+    this.visible(true);
     google.maps.event.trigger(this.marker, 'click');
   });
 };
@@ -114,77 +118,80 @@ function Map() {
   console.log("map initialized");
 };
 
-function displayInfoWindow(marker) {
-  /* Foursquare API */
-  // call to get initial information
-  /* Foursquare API settings */
+// populate Info Window
+function InfoWindow(marker) {
+  /* Foursquare API OAuth tokens or credentials */
   clientID = "3BL03YSDZLK1BFBXW2KI1LWDOVOKVZOXLI5HTB3ZIFJXSIHJ";
   clientSecret = "QFZIAMU2NPABZRMA2BKRZIXLS0XTBMKDYRRXOOWMMUGWNYD0";
 
+  // get response using OAuth token
+  var foursquareURL = 'https://api.foursquare.com/v2/venues/search' +
+                   '?client_id=' + clientID +
+                   '&client_secret=' + clientSecret + 
+                   '&v=20170801' +
+                   '&ll=' + marker.position.lat() + ',' + marker.position.lng();
+  console.log(foursquareURL);
 
-      var foursquareURL = 'https://api.foursquare.com/v2/venues/search' +
-                       '?client_id=' + clientID +
-                       '&client_secret=' + clientSecret + 
-                       '&v=20170801' +
-                       '&ll=' + marker.position.lat() + ',' + marker.position.lng();
-      console.log(foursquareURL);
+  $.ajax({
+    url: foursquareURL,
+    dataType: "json", 
+    success: function(data){
+      // get venue
+      var venue = data.response.venues[0];
 
-      $.ajax({
-        url: foursquareURL,
-        dataType: "json", 
-        success: function(data){
-          var venue = data.response.venues[0];
+      // get formatted phone
+      // if phone is undefined, set to error message
+      var phone = venue.contact.formattedPhone;
+      if (!phone) {
+        phone = 'Phone not available';
+      };
+      console.log("phone " + phone);
+      
+      // get address and format
+      var street = venue.location.formattedAddress[0];
+      var city = venue.location.formattedAddress[1];
 
-          var phone = venue.contact.formattedPhone;
-          if (phone === 'undefined') {
-            phone = '';
-          };
+      // if fields are undefined, set to error message
+      if (street || city ) {
+        var address = street + ', ' + city;
+      } else {
+        var address = "Address not available";
+      };
+      console.log("address " + address);
+      
+      // use id to retrieve url
+      // if url is not available, set link to #
+      var url = "https://foursquare.com/v/" + venue.id;
+      if (!url) {
+        url = "#";
+      };
+      console.log("url " + url);
+      
+      // Source: Google Maps API - Info Window
+      contentString = '<div id="content">'+
+                '<h4 id="firstHeading" class="firstHeading">'+
+                '<a target="_blank" href="' + url + '">' + marker.title  + '</a></h4>' +
+                '<p>'+ address + '</p>' +
+                '<p>'+ phone + '</p>' +
+                '</div>';
 
-          var street = venue.location.formattedAddress[0];
-          var city = venue.location.formattedAddress[1];
 
-          if (street !== 'undefined' || city !== 'undefined') {
-            var address = street + ', ' + city;
-          } else {
-            var address = "Address not available";
-          };
-          
-          var url = "https://foursquare.com/v/" + venue.id;
+      console.log("contentString created");
+      infowindow.setContent(contentString);
+    },
+    fail: function () {
+    alert("Failed to get Foursquare resources Try again please!");
+    }
+  });
 
-          if (url === 'undefined') {
-            url = "#";
-          };
-
-          console.log("phone " + phone);
-          console.log("address " + address);
-          console.log("address " + url);
-          // Open the infowindow on the correct marker
-          // Source: Google Maps API - Info Window
-          contentString = '<div id="content">'+
-                    '<h4 id="firstHeading" class="firstHeading">'+
-                    '<a target="_blank" href="' + url + '">' + marker.title  + '</a></h4>' +
-                    '<p>'+ address + '</p>' +
-                    '<p>'+ phone + '</p>' +
-                    '</div>';
-
-          console.log(contentString);
-
-          infowindow.setContent(contentString);
-        },
-        fail: function () {
-        alert("Failed to get Foursquare resources Try again please!");
-      }
-      });
-
-  // setCenter takes a LatLng object and center map
-  map.setCenter(marker.getPosition()); 
+  // Open the infowindow on the correct marker
   infowindow.open(map, marker);
   
+  // add marker animation
   marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function () {
       marker.setAnimation(null);
-    }, 1000);
-
+    }, 1500);
 };
 
 // Source: cat-clicker udacity course
@@ -200,8 +207,30 @@ function ViewModel() {
     self.locationList.push( new Location(locationItem) );
   });
 
-  // initialize current location
-  this.currentLocation = ko.observable( this.locationList() [0] );
+  // // initialize current location
+  // this.currentLocation = ko.observable( this.locationList() [0] );
+
+  // clear all markers from map
+  this.clearMarkers = function() {
+    self.locationList().forEach(function(locationItem){
+        // close window and reset icon
+        infowindow.close();
+        locationItem.marker.icon = 'images/blue-marker.png';
+        locationItem.visible(false);
+    });
+    return self.locationList();
+  };
+
+  // drop all markers to the map
+  // note: filter does not apply here
+  // [ ] need to clear input field
+  this.dropMarkers = function() {
+    // reset and clear all markers
+    this.clearMarkers();
+    self.locationList().forEach(function(locationItem){
+        locationItem.visible(true);
+    });
+  };
 
   // initialize filter 
   this.filter = ko.observable('');
@@ -211,9 +240,7 @@ function ViewModel() {
     var searchTerm = self.filter().toLowerCase();
 
     if (searchTerm === '') {
-      self.locationList().forEach(function(locationItem){
-        locationItem.visible(true);
-      });
+      this.dropMarkers();
       return self.locationList();
     } else {
       return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
@@ -228,23 +255,6 @@ function ViewModel() {
     }
   }, self);
 
-
-  // Clear all markers from map
-  this.clearMarkers = function() {
-    self.locationList().forEach(function(locationItem){
-        infowindow.close();
-        locationItem.visible(false);
-    });
-    return self.locationList();
-  };
-
-
-  this.dropMarkers = function() {
-    this.clearMarkers();
-    self.locationList().forEach(function(locationItem){
-        locationItem.visible(true);
-    });
-  };
 };
 
 function init() {
