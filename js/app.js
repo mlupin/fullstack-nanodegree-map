@@ -139,24 +139,19 @@ function displayInfoWindow(marker) {
           // location.id = ko.observable(venue.id);
           // console.log(location.id);
 
-          if (venue.hasOwnProperty('url')) {
-            venue.url = ko.observable(venue.url);
-            console.log(venue.url);
-          };
-          if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
-            venue.phone = ko.observable(venue.contact.formattedPhone);
-            console.log(venue.phone);
-          };
-          console.log("name" + venue.name);
-          console.log("url" + venue.url);
-          console.log("phone" + venue.contact.formattedPhone);
-          console.log("address" + venue.location.formattedAddress[0]);
+          console.log("name " + venue.name);
+          console.log("title " + marker.title);
+          var url = "https://foursquare.com/v/" + venue.name + venue.id;
+          console.log("id " + "https://foursquare.com/v/");
+          console.log("url " + url);
+          console.log("phone " + venue.contact.formattedPhone);
+          console.log("address " + venue.location.formattedAddress[0]);
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
                     '<h4 id="firstHeading" class="firstHeading">' + venue.name  + '</h4>' +
-                    '<p>'+ venue.address + ',' + venue.city+'</p>' +
-                    '<p>'+ venue.phone + ',' + venue.url+'</p>' +
+                    '<p>'+ venue.location.formattedAddress[0] + '</p>' +
+                    '<p>'+ venue.contact.formattedPhone + ',' + url+'</p>' +
                     '</div>';
 
           console.log(contentString);
