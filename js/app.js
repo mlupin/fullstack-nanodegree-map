@@ -3,6 +3,9 @@ var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
 
+// create variable used for foursquare api calls
+var clientID;
+var clientSecret;
 
 // List of locations similar to udacity course repo
 // Added different locations for LA, address, and categories
@@ -55,6 +58,11 @@ var Location = function(data) {
 
   this.title = ko.observable(data.title);
   this.location = ko.observable(data.location);
+  this.url = ko.observable(data.url);
+  this.address = ko.observable(data.address);
+  this.phone = ko.observable(data.phone);
+  this.id = ko.observable(data.id);
+
   // KO: The visible binding causes the associated DOM element to become hidden
   // or visible according to the value you pass to the binding.
   // set default to visible
@@ -103,30 +111,76 @@ function Map() {
 
   // initialize infoWindow
   infowindow = new google.maps.InfoWindow();
-  
-
-
-  // [ ] create drop function
-  // [ ] create make marker in location view
-  // [ ] create display and clear location functions w/html button options
-  // [ ] create timeout to drop location one at a time
 
 };
 
 function displayInfoWindow(marker) {
-    // Open the infowindow on the correct marker
-    // Source: Google Maps API - Info Window
-    contentString = '<div id="content">'+
-              '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
-              '</div>';
+  /* Foursquare API */
+  // call to get initial information
+  /* Foursquare API settings */
+  clientID = "3BL03YSDZLK1BFBXW2KI1LWDOVOKVZOXLI5HTB3ZIFJXSIHJ";
+  clientSecret = "QFZIAMU2NPABZRMA2BKRZIXLS0XTBMKDYRRXOOWMMUGWNYD0";
 
-    infowindow.setContent(contentString);
-    infowindow.open(map, marker);
-    
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function () {
-        marker.setAnimation(null);
-      }, 1000);
+
+      var foursquareURL = 'https://api.foursquare.com/v2/venues/search' +
+                       '?client_id=' + clientID +
+                       '&client_secret=' + clientSecret + 
+                       '&v=20170801' +
+                       '&ll=' + marker.position.lat() + ',' + marker.position.lng();
+      console.log(foursquareURL);
+
+      $.ajax({
+        url: foursquareURL,
+        dataType: "json", 
+        success: (function(data){
+          var venue = data.response.venues[0];
+
+          //
+          location.id = ko.observable(venue.id);
+          console.log(location.id);
+
+          if (venue.hasOwnProperty('url')) {
+            location.url = ko.observable(venue.url);
+            console.log(location.url);
+          };
+          if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
+            location.phone = ko.observable(venue.contact.formattedPhone);
+            console.log(location.phone);
+          };
+          console.log(location.name);
+
+          // Open the infowindow on the correct marker
+          // Source: Google Maps API - Info Window
+          contentString = '<div id="content">'+
+                    '<h4 id="firstHeading" class="firstHeading">' + location.name  + '</h4>' +
+                    '<p>'+ location.address + ',' + location.city+'</p>'
+                    '</div>';
+
+          infowindow.setContent(contentString);
+        }),
+        fail: function () {
+        alert("Failed to get Foursquare resources Try again please!");
+        contentString = '<div id="content">'+
+                    '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
+                    '</div>';
+
+          infowindow.setContent(contentString);
+      }
+      });
+
+  // // Open the infowindow on the correct marker
+  // // Source: Google Maps API - Info Window
+  // contentString = '<div id="content">'+
+  //           '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
+  //           '</div>';
+
+  // infowindow.setContent(contentString);
+  infowindow.open(map, marker);
+  
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function () {
+      marker.setAnimation(null);
+    }, 1000);
 
 };
 
@@ -134,7 +188,7 @@ function displayInfoWindow(marker) {
 function ViewModel() {
   // self always maps to the View Model
   var self = this;
-  
+
   // initialize list
   this.locationList = ko.observableArray([]);
 
