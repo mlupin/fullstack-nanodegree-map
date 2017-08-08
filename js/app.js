@@ -135,23 +135,28 @@ function displayInfoWindow(marker) {
         success: (function(data){
           var venue = data.response.venues[0];
 
-          // //
-          // location.id = ko.observable(venue.id);
-          // console.log(location.id);
+          var phone = venue.contact.formattedPhone;
+          if (phone === 'undefined') {
+            phone = '';
+          };
 
-          console.log("name " + venue.name);
-          console.log("title " + marker.title);
-          var url = "https://foursquare.com/v/" + venue.name + venue.id;
-          console.log("id " + "https://foursquare.com/v/");
-          console.log("url " + url);
+          var street = venue.location.formattedAddress[0];
+          var city = venue.location.formattedAddress[1];
+
+          if (street !== 'undefined' || city !== 'undefined') {
+            var address = street + ', ' + city;
+          } else {
+            var address = "Address not available";
+          };
+          
           console.log("phone " + venue.contact.formattedPhone);
           console.log("address " + venue.location.formattedAddress[0]);
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
-                    '<h4 id="firstHeading" class="firstHeading">' + venue.name  + '</h4>' +
-                    '<p>'+ venue.location.formattedAddress[0] + '</p>' +
-                    '<p>'+ venue.contact.formattedPhone + ',' + url+'</p>' +
+                    '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
+                    '<p>'+ address + '</p>' +
+                    '<p>'+ phone + ',' + url+'</p>' +
                     '</div>';
 
           console.log(contentString);
