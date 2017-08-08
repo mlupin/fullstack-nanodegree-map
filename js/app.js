@@ -147,8 +147,10 @@ function displayInfoWindow(marker) {
             venue.phone = ko.observable(venue.contact.formattedPhone);
             console.log(venue.phone);
           };
-          console.log(venue.name);
-
+          console.log("name" + venue.name);
+          console.log("url" + venue.url);
+          console.log("phone" + venue.contact.formattedPhone);
+          console.log("address" + venue.location.formattedAddress[0]);
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
