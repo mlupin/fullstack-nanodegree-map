@@ -152,8 +152,9 @@ function displayInfoWindow(marker) {
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
-                    '<h4 id="firstHeading" class="firstHeading">' + location.name  + '</h4>' +
-                    '<p>'+ location.address + ',' + location.city+'</p>'
+                    '<h4 id="firstHeading" class="firstHeading">' + venue.name  + '</h4>' +
+                    '<p>'+ venue.address + ',' + venue.city+'</p>' +
+                    '<p>'+ venue.phone + ',' + venue.url+'</p>' +
                     '</div>';
 
           console.log(contentString);
