@@ -132,7 +132,7 @@ function displayInfoWindow(marker) {
       $.ajax({
         url: foursquareURL,
         dataType: "json", 
-        success: (function(data){
+        success: function(data){
           var venue = data.response.venues[0];
 
           var phone = venue.contact.formattedPhone;
@@ -168,13 +168,16 @@ function displayInfoWindow(marker) {
                     '</div>';
 
           console.log(contentString);
+
           infowindow.setContent(contentString);
-        }),
+        },
         fail: function () {
         alert("Failed to get Foursquare resources Try again please!");
       }
       });
 
+  // setCenter takes a LatLng object and center map
+  map.setCenter(marker.getPosition()); 
   infowindow.open(map, marker);
   
   marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -225,6 +228,23 @@ function ViewModel() {
     }
   }, self);
 
+
+  // Clear all markers from map
+  this.clearMarkers = function() {
+    self.locationList().forEach(function(locationItem){
+        infowindow.close();
+        locationItem.visible(false);
+    });
+    return self.locationList();
+  };
+
+
+  this.dropMarkers = function() {
+    this.clearMarkers();
+    self.locationList().forEach(function(locationItem){
+        locationItem.visible(true);
+    });
+  };
 };
 
 function init() {

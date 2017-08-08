@@ -30,6 +30,10 @@
       <main id="main">
         <div class="app col-xs-12 col-md-4">
           <div class="search">
+            <!-- click binding -->
+            <button id="clear" data-bind="click: clearMarkers">clear all Markers</button>
+            <button id="drop" data-bind="click: dropMarkers">drop all Markers</button>
+
             <input id="filter"
                   class="options-box" 
                   data-bind="textInput: filter, valueUpdate: 'afterkeydown'"
