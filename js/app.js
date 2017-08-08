@@ -150,15 +150,21 @@ function displayInfoWindow(marker) {
           };
           
           var url = "https://foursquare.com/v/" + venue.id;
+
+          if (url === 'undefined') {
+            url = #;
+          };
+
           console.log("phone " + phone);
           console.log("address " + address);
           console.log("address " + url);
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
-                    '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
+                    '<h4 id="firstHeading" class="firstHeading">'+
+                    '<a href="' + url + '">' + marker.title  + '</a></h4>' +
                     '<p>'+ address + '</p>' +
-                    '<p>'+ phone + ',' + url+'</p>' +
+                    '<p>'+ phone + '</p>' +
                     '</div>';
 
           console.log(contentString);
@@ -166,21 +172,9 @@ function displayInfoWindow(marker) {
         }),
         fail: function () {
         alert("Failed to get Foursquare resources Try again please!");
-        contentString = '<div id="content">'+
-                    '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
-                    '</div>';
-
-          infowindow.setContent(contentString);
       }
       });
 
-  // // Open the infowindow on the correct marker
-  // // Source: Google Maps API - Info Window
-  // contentString = '<div id="content">'+
-  //           '<h4 id="firstHeading" class="firstHeading">' + marker.title  + '</h4>' +
-  //           '</div>';
-
-  // infowindow.setContent(contentString);
   infowindow.open(map, marker);
   
   marker.setAnimation(google.maps.Animation.BOUNCE);
