@@ -145,7 +145,6 @@ function InfoWindow(marker) {
       if (!phone) {
         phone = 'Phone not available';
       };
-      console.log("phone " + phone);
       
       // get address and format
       var street = venue.location.formattedAddress[0];
@@ -157,23 +156,29 @@ function InfoWindow(marker) {
       } else {
         var address = "Address not available";
       };
-      console.log("address " + address);
-      
+
+      // social shares
+      var fb =  venue.contact.facebook;
+      var tw =  venue.contact.twitter;
+
       // use id to retrieve url
       // if url is not available, set link to #
       var url = "https://foursquare.com/v/" + venue.id;
-      if (!url) {
+      if (!venue.id) {
         url = "#";
       };
-      console.log("url " + url);
       
       // Source: Google Maps API - Info Window
       contentString = '<div id="content">'+
-                '<h4 id="firstHeading" class="firstHeading">'+
-                '<a target="_blank" href="' + url + '">' + marker.title  + '</a></h4>' +
-                '<p>'+ address + '</p>' +
-                '<p>'+ phone + '</p>' +
-                '</div>';
+        '<h4 id="firstHeading" class="firstHeading">'+
+        '<a target="_blank" href="' + url + '">' + marker.title + '  </a>'+
+        '<a  target="_blank" href="https://facebook.com/'+ fb +
+        '" class="social"><i class="fa fa-facebook"></i>  </a>'+
+        '<a  target="_blank" href="https://twitter.com/'+ tw +
+        '" class="social"><i class="fa fa-twitter"></i>  </a></h4>' +
+        '<p>'+ address + '</p>' +
+        '<p>'+ phone + '</p>' +
+        '</div>';
 
 
       console.log("contentString created");
