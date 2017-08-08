@@ -1,7 +1,9 @@
+/* global ko, google, $, alert */
+/* global infowindow, contentString */
+/* exported init, error */
+
 // global variables
 var map;
-// Create a new blank array for all the listing markers.
-var markers = [];
 
 // create variable used for foursquare api calls
 var clientID;
@@ -116,9 +118,7 @@ function Map() {
   // initialize infoWindow
   infowindow = new google.maps.InfoWindow();
   console.log("map initialized");
-
-
-};
+}
 
 // populate Info Window
 function InfoWindow(marker) {
@@ -146,18 +146,18 @@ function InfoWindow(marker) {
       var phone = venue.contact.formattedPhone;
       if (!phone) {
         phone = 'Phone not available';
-      };
+      }
       
       // get address and format
       var street = venue.location.formattedAddress[0];
       var city = venue.location.formattedAddress[1];
-
+      var address = '';
       // if fields are undefined, set to error message
       if (street || city ) {
-        var address = street + ', ' + city;
+        address = street + ', ' + city;
       } else {
-        var address = "Address not available";
-      };
+        address = "Address not available";
+      }
 
       // social shares
       var fb =  venue.contact.facebook;
@@ -168,7 +168,7 @@ function InfoWindow(marker) {
       var url = "https://foursquare.com/v/" + venue.id;
       if (!venue.id) {
         url = "#";
-      };
+      }
       
       // Source: Google Maps API - Info Window
       contentString = '<div id="content">'+
@@ -199,7 +199,7 @@ function InfoWindow(marker) {
     setTimeout(function () {
       marker.setAnimation(null);
     }, 1500);
-};
+}
 
 // Source: cat-clicker udacity course
 function ViewModel() {
@@ -214,7 +214,7 @@ function ViewModel() {
     self.locationList.push( new Location(locationItem) );
   });
 
-  // // initialize current location
+  // initialize current location
   // this.currentLocation = ko.observable( this.locationList() [0] );
 
   // clear all markers from map
@@ -266,15 +266,15 @@ function ViewModel() {
   // does not reset filter
   this.resetMap = function () {
     this.dropMarkers();
-    map.setCenter({lat: 34.032235, lng: -118.348711},);
+    map.setCenter({lat: 34.032235, lng: -118.348711});
     console.log("Reset Map");
   };
-};
+}
 
 function init() {
   Map();
   ko.applyBindings(new ViewModel());
-};
+}
 
 function error() {
   alert("Google Maps has failed to load.");
