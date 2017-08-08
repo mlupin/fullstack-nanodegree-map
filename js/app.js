@@ -135,19 +135,19 @@ function displayInfoWindow(marker) {
         success: (function(data){
           var venue = data.response.venues[0];
 
-          //
-          location.id = ko.observable(venue.id);
-          console.log(location.id);
+          // //
+          // location.id = ko.observable(venue.id);
+          // console.log(location.id);
 
           if (venue.hasOwnProperty('url')) {
-            location.url = ko.observable(venue.url);
-            console.log(location.url);
+            venue.url = ko.observable(venue.url);
+            console.log(venue.url);
           };
           if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
-            location.phone = ko.observable(venue.contact.formattedPhone);
-            console.log(location.phone);
+            venue.phone = ko.observable(venue.contact.formattedPhone);
+            console.log(venue.phone);
           };
-          console.log(location.name);
+          console.log(venue.name);
 
           // Open the infowindow on the correct marker
           // Source: Google Maps API - Info Window
