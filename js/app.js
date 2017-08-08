@@ -162,7 +162,7 @@ function displayInfoWindow(marker) {
           // Source: Google Maps API - Info Window
           contentString = '<div id="content">'+
                     '<h4 id="firstHeading" class="firstHeading">'+
-                    '<a href="' + url + '">' + marker.title  + '</a></h4>' +
+                    '<a target="_blank" href="' + url + '">' + marker.title  + '</a></h4>' +
                     '<p>'+ address + '</p>' +
                     '<p>'+ phone + '</p>' +
                     '</div>';
