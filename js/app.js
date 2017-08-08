@@ -48,7 +48,7 @@ var initialLocations = [
     location: { lat: 34.017583, lng: -118.384038 }
   },
   {
-    title: 'Harvelle\'s Blue Club',
+    title: 'Harvelle\'s Blues Club',
     location: { lat: 34.015605, lng: -118.494488 }
   }
 ];
@@ -116,6 +116,8 @@ function Map() {
   // initialize infoWindow
   infowindow = new google.maps.InfoWindow();
   console.log("map initialized");
+
+
 };
 
 // populate Info Window
@@ -260,6 +262,10 @@ function ViewModel() {
     }
   }, self);
 
+  this.resetMap = function () {
+    this.dropMarkers();
+    map.setCenter({lat: 34.032235, lng: -118.348711},);
+  };
 };
 
 function init() {
