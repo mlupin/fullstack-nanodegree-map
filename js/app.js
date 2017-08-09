@@ -82,7 +82,7 @@ var Location = function(data) {
     this.icon = 'images/purple-marker.png';
     // open info window and populate
     InfoWindow(this);
-    // setCenter takes a LatLng object and center map
+    // setCenter takes a LatLng object to center map
     map.setCenter(this.getPosition()); 
   });
 
@@ -91,7 +91,7 @@ var Location = function(data) {
       this.marker.setVisible(this.visible());
   }, this);
 
-  // selecting location from list is similar to clicking on marker
+  // selecting location from list; similar to clicking on marker
   this.selectLocation = (function() {
     // if marker is not visible, set marker visible by default
     this.visible(true);
@@ -120,7 +120,7 @@ function Map() {
   console.log("map initialized");
 }
 
-// populate Info Window
+// Info Window function
 function InfoWindow(marker) {
   /* Foursquare API OAuth tokens or credentials */
   clientID = "3BL03YSDZLK1BFBXW2KI1LWDOVOKVZOXLI5HTB3ZIFJXSIHJ";
@@ -132,8 +132,7 @@ function InfoWindow(marker) {
                    '&client_secret=' + clientSecret + 
                    '&v=20170801' +
                    '&ll=' + marker.position.lat() + ',' + marker.position.lng();
-  console.log(foursquareURL);
-
+  
   $.ajax({
     url: foursquareURL,
     dataType: "json", 
@@ -145,13 +144,14 @@ function InfoWindow(marker) {
       // if phone is undefined, set to error message
       var phone = venue.contact.formattedPhone;
       if (!phone) {
-        phone = 'Phone not available';
+        phone = 'Phone info not available';
       }
       
       // get address and format
       var street = venue.location.formattedAddress[0];
       var city = venue.location.formattedAddress[1];
       var address = '';
+      
       // if fields are undefined, set to error message
       if (street || city ) {
         address = street + ', ' + city;
@@ -187,7 +187,7 @@ function InfoWindow(marker) {
       infowindow.setContent(contentString);
     },
     fail: function () {
-    alert("Failed to get Foursquare resources Try again please!");
+    alert("Failed to connect to Foursquare.");
     }
   });
 
@@ -213,9 +213,6 @@ function ViewModel() {
   initialLocations.forEach(function(locationItem) {
     self.locationList.push( new Location(locationItem) );
   });
-
-  // initialize current location
-  // this.currentLocation = ko.observable( this.locationList() [0] );
 
   // clear all markers from map
   this.clearMarkers = function() {
@@ -243,18 +240,19 @@ function ViewModel() {
 
   // search function
   this.filteredLocations = ko.computed( function() {
+    // close window in case location is not in search results
     infowindow.close();
     var searchTerm = self.filter().toLowerCase();
 
     if (searchTerm === '') {
+      // return all markers
       this.dropMarkers();
       return self.locationList();
     } else {
       return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
         var locationTitle = locationItem.title().toLowerCase();
         
-        // -1 means "no match found" or false
-        // otherwise true
+        // -1 means "no match found" or false; otherwise true
         var result = (locationTitle.indexOf(searchTerm) !== -1);
         locationItem.visible(result);
         return result;
@@ -263,7 +261,7 @@ function ViewModel() {
   }, self);
 
   // reset map initial set
-  // does not reset filter
+  // does not reset filter or filtered list
   this.resetMap = function () {
     this.dropMarkers();
     map.setCenter({lat: 34.032235, lng: -118.348711});
