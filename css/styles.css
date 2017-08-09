@@ -83,12 +83,7 @@ html {
 }
 
 #map {
-/*  bottom:0px;*/
   height: 100vh;
-/*  left: 362px;*/
-/*  position: relative;*/
- /* right: 0px;*/
-/*  z-index: 1;*/
 }
 
 .bottons {
@@ -102,7 +97,6 @@ html {
   width: 100%;
 }
 .list {
-/*  height: 80vh;*/
   overflow: scroll;
 }
 
@@ -116,7 +110,6 @@ html {
   padding: 5px;
   list-style: none;
   background-color: lightgrey;
-  opacity: 0.8;
 }
 
 .location:hover {
@@ -127,7 +120,6 @@ html {
 ********************/
 #about {
   background: url(../images/hollywood.jpg) no-repeat; 
-/*  z-index: 3;*/
 }
 
 .about-content {
@@ -150,7 +142,7 @@ html {
 /*******************
 * About and Connect
 ********************/
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 765px) {
   #map {
     height: 80vh;
     z-index: 1
