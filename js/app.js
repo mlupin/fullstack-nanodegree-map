@@ -163,7 +163,7 @@ function InfoWindow(marker) {
       // social shares
       var fb =  venue.contact.facebook;
       var tw =  venue.contact.twitter;
-
+      
       // use id to retrieve url
       // if url is not available, set link to #
       var url = "https://foursquare.com/v/" + venue.id;
@@ -262,10 +262,17 @@ function ViewModel() {
     }
   }, self);
 
+  // clear filter
+  // Stack Overflow - Knockout.js: clear selection in select element (modified)
+  this.clearFilter = function() {
+    this.filter('');
+  };
+
   // reset map initial set
-  // does not reset filter or filtered list
   this.resetMap = function () {
+    this.clearFilter();
     this.dropMarkers();
+    this.filteredLocations();
     map.setCenter({lat: 34.032235, lng: -118.348711});
     map.setZoom(11);
     console.log("Reset Map");
