@@ -267,6 +267,7 @@ function ViewModel() {
   this.resetMap = function () {
     this.dropMarkers();
     map.setCenter({lat: 34.032235, lng: -118.348711});
+    map.setZoom(11);
     console.log("Reset Map");
   };
 }

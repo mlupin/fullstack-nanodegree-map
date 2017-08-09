@@ -31,9 +31,12 @@
         <div class="app col-xs-12 col-md-4">
           <div class="bottons col-xs-12">
             <!-- click binding -->
-            <button id="clear" type="botton" class="btn btn-info col-xs-4" data-bind="click: clearMarkers">Clear</button>
-            <button id="drop" type="botton" class="btn btn-info col-xs-4" data-bind="click: dropMarkers">Drop</button>
-            <button id="reset" type="reset" class="btn btn-info col-xs-4" data-bind="click: resetMap">Reset</button>
+            <button id="clear" type="botton" class="btn btn-info col-xs-4" 
+                    data-bind="click: clearMarkers">Clear</button>
+            <button id="drop" type="botton" class="btn btn-info col-xs-4" 
+                    data-bind="click: dropMarkers">Drop</button>
+            <button id="reset" type="reset" class="btn btn-info col-xs-4" 
+                    data-bind="click: resetMap">Reset Map</button>
           </div>
 
           <input id="filter" class="options-box" 
@@ -41,12 +44,14 @@
                 placeholder="Search..." />
 
           
-        <div class="list">
-          <ul class="results" data-bind="foreach: filteredLocations">
-            <li class="location bg-info"><h5 class="location-title" data-bind="text: title, click: selectLocation"></h5></li>
-          </ul>
+          <div class="list">
+            <ul class="results" data-bind="foreach: filteredLocations">
+              <li class="location bg-info"><h5 class="location-title" 
+                  data-bind="text: title, click: selectLocation"></h5></li>
+            </ul>
+          </div>
         </div>
-              </div>
+
         <div id="map" class="map col-xs-12 col-md-8"></div>
       </main>
 
@@ -59,17 +64,24 @@
             <a class="jumper" href="#hero">home</a>
           </ul>
 
-          <p class="about-info">This project is a single page application featuring a map of Los Angeles neighborhood. The application was built using Google Maps API, Foursquare API, Knockout JS, and jQuery.</p>
+          <h5 class="about-info">This project is a single page application 
+              featuring a map of Los Angeles neighborhood. The application was 
+              built using Google Maps API, Foursquare API, Knockout JS, 
+              and jQuery.</h5>
         </div>
         
         <footer id="connect" class="connect-content">
           <h1 class="connect-headline">Connect</h1>
 
           <ul class="links">
-            <a href="https://github.com/mlupin" class="link-item"><i class="fa fa-github"></i></a>
-            <a href="mailto:lupinmarina@gmail.com" class="link-item"><i class="fa fa-envelope"></i></a>
-            <a href="https://linkedin.com/lupinmarina" class="link-item"><i class="fa fa-linkedin"></i></a>
-            <a href="https://udacity.com" class="link-item"><i class="fa fa-university"></i></a>
+            <a href="https://github.com/mlupin" class="link-item">
+              <i class="fa fa-github"></i></a>
+            <a href="mailto:lupinmarina@gmail.com" class="link-item">
+              <i class="fa fa-envelope"></i></a>
+            <a href="https://linkedin.com/lupinmarina" class="link-item">
+              <i class="fa fa-linkedin"></i></a>
+            <a href="https://udacity.com" class="link-item">
+              <i class="fa fa-university"></i></a>
           </ul>
         </footer>
       </section> 
