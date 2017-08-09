@@ -11,7 +11,7 @@ $ cd fullstack-nanodegree-map
 $ open index.html
 ```
 
-Sources:
+Sources and Attributions:
 - [Udacity repo](https://github.com/udacity/ud864/blob/master/Project_Code_13_DevilInTheDetailsPlacesDetails.html)
 - [Bootstrap](https://www.bootstrapcdn.com/)
 - [Knockout JS Library](https://cdnjs.com/libraries/knockout)
@@ -26,3 +26,5 @@ Sources:
 - [Google Maps API - Info Window](https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple)
 - [Google Maps API - Marker Animation](https://developers.google.com/maps/documentation/javascript/examples/marker-animations-iteration)
 - [Google Maps API - Markers](https://developers.google.com/maps/documentation/javascript/markers)
+- [Knock Me Out - Filter Function](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
+- [Sitepoint - Using $.ajax() Tutorial](https://www.sitepoint.com/use-jquerys-ajax-function/)

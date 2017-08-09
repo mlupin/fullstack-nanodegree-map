@@ -133,6 +133,7 @@ function InfoWindow(marker) {
                    '&v=20170801' +
                    '&ll=' + marker.position.lat() + ',' + marker.position.lng();
   
+  // Source: Sitepoint - Using $.ajax() Tutorial
   $.ajax({
     url: foursquareURL,
     dataType: "json", 
@@ -186,8 +187,8 @@ function InfoWindow(marker) {
       console.log("contentString created");
       infowindow.setContent(contentString);
     },
-    fail: function () {
-    alert("Failed to connect to Foursquare.");
+    error: function () {
+      alert("Failed to connect to Foursquare.");
     }
   });
 
@@ -238,7 +239,8 @@ function ViewModel() {
   // initialize filter 
   this.filter = ko.observable('');
 
-  // search function
+  // search function; see source in README
+  // Source: Knock Me Out - Filter Function
   this.filteredLocations = ko.computed( function() {
     // close window in case location is not in search results
     infowindow.close();
