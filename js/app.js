@@ -217,6 +217,7 @@ function ViewModel() {
 
   // clear all markers from map
   this.clearMarkers = function() {
+    this.clearFilter();
     self.locationList().forEach(function(locationItem){
         // close window and reset icon
         infowindow.close();
@@ -226,8 +227,6 @@ function ViewModel() {
   };
 
   // drop all markers to the map
-  // note: filter does not apply here
-  // [ ] need to clear input field
   this.dropMarkers = function() {
     // reset and clear all markers
     this.clearMarkers();
@@ -239,6 +238,11 @@ function ViewModel() {
   // initialize filter 
   this.filter = ko.observable('');
 
+  // clear filter
+  // Stack Overflow - Knockout.js: clear selection in select element (modified)
+  this.clearFilter = function() {
+    this.filter('');
+  };
   // search function; see source in README
   // Source: Knock Me Out - Filter Function
   this.filteredLocations = ko.computed( function() {
@@ -262,15 +266,8 @@ function ViewModel() {
     }
   }, self);
 
-  // clear filter
-  // Stack Overflow - Knockout.js: clear selection in select element (modified)
-  this.clearFilter = function() {
-    this.filter('');
-  };
-
   // reset map initial set
   this.resetMap = function () {
-    this.clearFilter();
     this.dropMarkers();
     this.filteredLocations();
     map.setCenter({lat: 34.032235, lng: -118.348711});
