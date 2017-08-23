@@ -1,8 +1,8 @@
 # Neighborhood Map Project
 This project is a single page application featuring a map of Los Angeles neighborhood. The application was built using Google Maps API, Foursquare API, Knockout JS, and jQuery.
 
-Live site: [github page](https://mlupin.github.io/fullstack-nanodegree-map/)
-
+<!-- Live site: [github page](https://mlupin.github.io/fullstack-nanodegree-map/)
+ -->
 ### Installation
 Clone the project repository and open index.html
 ```
