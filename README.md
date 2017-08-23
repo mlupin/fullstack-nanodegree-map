@@ -27,6 +27,7 @@ Sources and Attributions:
 - [Google Maps API - Marker Animation](https://developers.google.com/maps/documentation/javascript/examples/marker-animations-iteration)
 - [Google Maps API - Markers](https://developers.google.com/maps/documentation/javascript/markers)
 - [Knock Me Out - Filter Function](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
+- [Knockout.js: clear selection in select element](https://stackoverflow.com/questions/11300258/knockout-js-clear-selection-in-select-element)
+- [How To Permanently Stop JShint Read Only Warning](https://stackoverflow.com/questions/29515561/how-to-permanently-stop-jshint-read-only-warning-error)
 - [Sitepoint - Using $.ajax() Tutorial](https://www.sitepoint.com/use-jquerys-ajax-function/)
 - Lastly, I would like to give attribution to a user with this [Repo](https://github.com/hipslikeyeah/udacity-p5-neighborhood-map).
-- [Knockout.js: clear selection in select element](https://stackoverflow.com/questions/11300258/knockout-js-clear-selection-in-select-element)
