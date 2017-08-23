@@ -1,5 +1,6 @@
 /* global ko, google, $, alert */
-/* global infowindow, contentString */
+/* global infowindow, contentString*/
+/* global contentString1, contentString2, contentString3, contentString4*/
 /* exported init, error */
 /* global infowindow:true */
 /* global contentString:true */
@@ -163,24 +164,32 @@ function InfoWindow(marker) {
       }
 
       // social shares
-      var fb =  venue.contact.facebook;
-      var tw =  venue.contact.twitter;
+      // var fb =  venue.contact.facebook;
+      // var tw =  venue.contact.twitter;
       
+
+
       // use id to retrieve url
       // if url is not available, set link to #
-      var url = "https://foursquare.com/v/" + venue.id;
-      if (!venue.id) {
-        url = "#";
-      }
+      // var url = "https://foursquare.com/v/" + venue.id;
+      // if (!venue.id) {
+      //   url = "#";
+      // }
       
       // Source: Google Maps API - Info Window
+      // contentString = '<div id="content">'+
+      //   '<h4 id="firstHeading" class="firstHeading">'+
+      //   '<a target="_blank" href="' + url + '">' + marker.title + '  </a>'+
+      //   '<a  target="_blank" href="https://facebook.com/'+ fb +
+      //   '" class="social"><i class="fa fa-facebook"></i>  </a>'+
+      //   '<a  target="_blank" href="https://twitter.com/'+ tw +
+      //   '" class="social"><i class="fa fa-twitter"></i>  </a></h4>' +
+      //   '<p>'+ address + '</p>' +
+      //   '<p>'+ phone + '</p>' +
+      //   '</div>';
+
       contentString = '<div id="content">'+
-        '<h4 id="firstHeading" class="firstHeading">'+
-        '<a target="_blank" href="' + url + '">' + marker.title + '  </a>'+
-        '<a  target="_blank" href="https://facebook.com/'+ fb +
-        '" class="social"><i class="fa fa-facebook"></i>  </a>'+
-        '<a  target="_blank" href="https://twitter.com/'+ tw +
-        '" class="social"><i class="fa fa-twitter"></i>  </a></h4>' +
+        '<h4 id="firstHeading" class="firstHeading">' + marker.title + '</h4>' +
         '<p>'+ address + '</p>' +
         '<p>'+ phone + '</p>' +
         '</div>';
