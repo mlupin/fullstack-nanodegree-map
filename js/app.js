@@ -225,6 +225,40 @@ function ViewModel() {
   this.clearFilter = function() {
     this.filter('');
   };
+  
+  // hide all markers
+  this.hideAllMarkers = function() {
+    self.locationList().forEach(function(locationItem){
+        infowindow.close();
+        locationItem.visible(false);
+    });
+  };
+
+  // show all markers
+  this.showAllMarkers = function() {
+    self.locationList().forEach(function(locationItem){
+        infowindow.close();
+        locationItem.visible(true);
+    });
+  };
+
+  // // clear all markers from map
+  this.resetMarkers = function() {
+    this.clearFilter();
+    self.locationList().forEach(function(locationItem){
+        // close window and reset icon
+        infowindow.close();
+        locationItem.marker.icon = 'images/blue-marker.png';
+        locationItem.visible(false);
+    });
+  };
+
+  // reset map initial set
+  this.resetMap = function () {
+    map.setCenter({lat: 34.032235, lng: -118.348711});
+    map.setZoom(11);
+  };
+
   // search function; see source in README
   // Source: Knock Me Out - Filter Function
   this.filteredLocations = ko.computed( function() {
@@ -234,7 +268,7 @@ function ViewModel() {
 
     if (searchTerm === '') {
       // return all markers
-      this.dropMarkers();
+      this.showAllMarkers();
       return self.locationList();
     } else {
       return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
@@ -248,33 +282,26 @@ function ViewModel() {
     }
   }, self);
 
-  // clear all markers from map
-  this.clearMarkers = function() {
+  // (button) clear all markers from map
+  this.clear = function() {
     this.clearFilter();
-    self.locationList().forEach(function(locationItem){
-        // close window and reset icon
-        infowindow.close();
-        locationItem.marker.icon = 'images/blue-marker.png';
-        locationItem.visible(false);
-    });
+    this.hideAllMarkers();
+    console.log("clear");
   };
 
-  // drop all markers to the map
-  this.dropMarkers = function() {
-    // reset and clear all markers
-    this.clearMarkers();
-    self.locationList().forEach(function(locationItem){
-        locationItem.visible(true);
-    });
+  // (button) drop all markers to the map
+  this.drop = function() {
+    this.clearFilter();
+    this.showAllMarkers();
+    console.log("drop");
   };
 
-  // reset map initial set
-  this.resetMap = function () {
-    this.dropMarkers();
-    this.filteredLocations();
-    map.setCenter({lat: 34.032235, lng: -118.348711});
-    map.setZoom(11);
-    console.log("Reset Map");
+  // (button) reset
+  this.reset = function () {
+    this.resetMarkers();
+    this.showAllMarkers();
+    this.resetMap();
+    console.log("reset");
   };
 }
 
