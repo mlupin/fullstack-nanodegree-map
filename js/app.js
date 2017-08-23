@@ -1,6 +1,8 @@
 /* global ko, google, $, alert */
 /* global infowindow, contentString */
 /* exported init, error */
+/* global infowindow:true */
+/* global contentString:true */
 
 // global variables
 var map;
@@ -215,26 +217,6 @@ function ViewModel() {
     self.locationList.push( new Location(locationItem) );
   });
 
-  // clear all markers from map
-  this.clearMarkers = function() {
-    this.clearFilter();
-    self.locationList().forEach(function(locationItem){
-        // close window and reset icon
-        infowindow.close();
-        locationItem.marker.icon = 'images/blue-marker.png';
-        locationItem.visible(false);
-    });
-  };
-
-  // drop all markers to the map
-  this.dropMarkers = function() {
-    // reset and clear all markers
-    this.clearMarkers();
-    self.locationList().forEach(function(locationItem){
-        locationItem.visible(true);
-    });
-  };
-
   // initialize filter 
   this.filter = ko.observable('');
 
@@ -265,6 +247,26 @@ function ViewModel() {
       });
     }
   }, self);
+
+  // clear all markers from map
+  this.clearMarkers = function() {
+    this.clearFilter();
+    self.locationList().forEach(function(locationItem){
+        // close window and reset icon
+        infowindow.close();
+        locationItem.marker.icon = 'images/blue-marker.png';
+        locationItem.visible(false);
+    });
+  };
+
+  // drop all markers to the map
+  this.dropMarkers = function() {
+    // reset and clear all markers
+    this.clearMarkers();
+    self.locationList().forEach(function(locationItem){
+        locationItem.visible(true);
+    });
+  };
 
   // reset map initial set
   this.resetMap = function () {
